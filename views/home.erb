@@ -1,3 +1,5 @@
+<h2>Alloy is a simple web API for CSS preprocessors.</h2>
+
 <form method="post" class="form-inline">
   <div id="editor"></div>
   <div class="well">
@@ -11,3 +13,17 @@
 </form>
 
 <pre id='result' style="display: none;"><code class="language-css"></code></pre>
+
+<div id='api-docs'>
+  <h3>API Reference</h3>
+
+  <p>To use the Alloy API, you will make a simple <code>post</code> request to <code>http://alloy.divshot.com/compile/:lang</code>, where
+    <code>:lang</code> is one of <code>sass</code>, <code>scss</code>, <code>less</code>, or <code>stylus</code>. The request can either be of type <code>applicaton/json</code> or <code>application/x-www-form-encoded</code> and must include a <code>source</code> parameter
+    with the uncompiled code.</p>
+
+  <h4>Example</h4>
+
+  <pre><code>POST http://alloy.divshot.com/compile/sass
+Content-Type: application/json
+
+{"source":"@import \"compass\"\n\n.btn\n  @mixin border-radius(15px)\n  background-color: blue"}</code></div>
