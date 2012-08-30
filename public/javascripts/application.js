@@ -5,6 +5,11 @@ $(function() {
   editor.renderer.setShowGutter(false);
   editor.session.setTabSize(2);
 
+  var setType = function(type) {
+    editor.session.setValue($("#" + type + "-default").html());
+  }
+  setType("sass");
+
   $("input[name=type]").change(function() {
     setType($("input[name=type]:checked").val());
   });
