@@ -19,12 +19,18 @@ $(function() {
     var url = "/compile/" + $("input[name=type]:checked").val()
     var data = {source: editor.session.getValue() }
     if ($("#field_compress").is(":checked")) data.compress = true;
+    $('form button').html('Compiling...').attr('disabled', true);
     $.ajax({
       url: url,
       type: 'POST',
       dataType: "text",
       data: data,
+      error: function(res, status, err) {
+        alert('Compile Error: ' + err);
+        $('form button').html('Compile').attr('disabled', false);
+      },
       success: function(text) {
+        $('form button').html('Compile').attr('disabled', false);
         $("#result").show().find("code").text(text);
         Prism.highlightAll();
       }
