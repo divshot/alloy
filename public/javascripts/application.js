@@ -18,6 +18,10 @@ $(function() {
   $("form").submit(function(e) {
     e.preventDefault();
     var url = "/compile/" + $("input[name=type]:checked").val()
+    if ($("meta[name=api_root]").length > 0) {
+      url = $("meta[name=api_root]").attr("content") + url;
+    }
+
     var data = {source: editor.session.getValue() }
     if ($("#field_compress").is(":checked")) data.compress = true;
     $('form button').html('Compiling...').attr('disabled', true);

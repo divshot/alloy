@@ -12,6 +12,7 @@ module Alloy
     end
 
     get '/' do
+      redirect ENV["HOME_URL"], 301 if ENV["HOME_URL"]
       erb :home
     end
 
