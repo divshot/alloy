@@ -6,6 +6,8 @@ require 'compass'
 require 'less-js'
 require 'stylus'
 require 'sinatra'
+require 'securerandom'
+require 'redis'
 
 paths = Sass::Engine::DEFAULT_OPTIONS[:load_paths]
 paths << Compass::Frameworks[:compass].stylesheets_directory

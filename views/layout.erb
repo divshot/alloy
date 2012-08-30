@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
     <script type="text/javascript" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ace/0.2.0/ace.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ace/0.2.0/theme-vibrant_ink.js"></script>
     <style>
       html { height: 100%; }
       body { background: #FBFBFB url('/images/bg.jpg') top left repeat-x; height: 100%; padding-top: 42px; border-top: 3px solid #000; }
@@ -14,6 +16,15 @@
           #share-buttons li { list-style: none; margin: 0 0 10px 0; padding: 0; }
       #content { color: #444; text-shadow: 0 1px 0 rgba(255,255,255,0.32); }
         textarea.src { width: 100%; height: 320px; font-size: 0.8em; -webkit-box-sizing: border-box; box-sizing: border-box; font-family: "Courier New", Monaco, monospace;
+        }
+        #editor {
+          position: relative;
+          width: 100%;
+          height: 300px;
+          margin-bottom: 15px;
+        }
+        .btn-large {
+          margin: -8px -10px;
         }
     </style>
   </head>

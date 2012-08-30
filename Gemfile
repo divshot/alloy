@@ -13,3 +13,4 @@ gem 'stylus'
 gem 'less-js'
 
 gem 'sinatra'
+gem 'redis'
