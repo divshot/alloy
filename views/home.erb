@@ -18,18 +18,20 @@
 <div id='api-docs'>
   <h3>API Reference</h3>
 
-  <p>To use the Alloy API, you will make a simple <code>post</code> request to <code>http://alloy.divshot.com/compile/:lang</code>, where
-    <code>:lang</code> is one of <code>sass</code>, <code>scss</code>, <code>less</code>, or <code>stylus</code>. The request can either be of type <code>applicaton/json</code> or <code>application/x-www-form-encoded</code> and must include a <code>source</code> parameter
-    with the uncompiled code.</p>
+  <p>To use the Alloy API, you will make a simple <code>POST</code> request to <code>http://alloy.divshot.com/compile</code>. The request can either be of type <code>applicaton/json</code> or <code>application/x-www-form-encoded</code> and must include a <b>source</b> parameter with the uncompiled code and a <b>type</b> parameter. The <b>type</b> parameter can be any one of <code>sass</code>, <code>scss</code>, <code>less</code>, and <code>stylus</code>.</p>
 
   <p>You can additionally pass a <code>compress</code> parameter if you would like the resulting CSS to be minified.</p>
 
   <h4>Example</h4>
 
-  <pre><code>POST http://alloy.divshot.com/compile/sass
+  <pre><code>POST http://alloy.divshot.com/compile
 Content-Type: application/json
 
-{"source":"@import \"compass\"\n\n.btn\n  @mixin border-radius(15px)\n  background-color: blue"}</code></div>
+{
+  "type":"sass",
+  "source":"@import \"compass\"\n\n.btn\n  @mixin border-radius(15px)\n  background-color: blue",
+  "compress":true
+}</code></div>
 
 
 <script type="text/sass" id="sass-default">// Compass is available
@@ -43,7 +45,7 @@ Content-Type: application/json
 @import "compass";
 
 .btn {
-  @mixin border-radius(12px);
+  @include border-radius(12px);
   background: #06a;
 }</script>
 
