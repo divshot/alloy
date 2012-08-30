@@ -1,5 +1,7 @@
-module Chic
+module Alloy
   class App < Sinatra::Base
+    use Alloy::Throttle, max: 100, cache: $redis
+
     get '/' do
       erb :home
     end
@@ -61,9 +63,9 @@ module Chic
       $redis.incrby "stats:bytes_compiled", source.bytesize
       $redis.incrby "stats:lines_compiled", source.lines.count
 
-      $redis.zincrby "stats:typed:bytes_compiled", source.bytesize, type.to_s
-      $redis.zincrby "stats:typed:lines_compiled", source.lines.count, type.to_s
-      $redis.zincrby "stats:typed:compiles", 1, type.to_s
+      $redis.zincrby "stats:types:bytes_compiled", source.bytesize, type.to_s
+      $redis.zincrby "stats:types:lines_compiled", source.lines.count, type.to_s
+      $redis.zincrby "stats:types:compiles", 1, type.to_s
     end
   end
 end

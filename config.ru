@@ -6,6 +6,7 @@ require 'compass'
 require 'less-js'
 require 'stylus'
 require 'sinatra'
+require 'rack/throttle'
 require 'securerandom'
 require 'redis'
 require 'yui/compressor'
@@ -22,5 +23,6 @@ else
   $redis = Redis.new
 end
 
+require './throttle'
 require './app'
-run Chic::App
+run Alloy::App

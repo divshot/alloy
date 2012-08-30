@@ -5,6 +5,7 @@ gem 'multi_json'
 gem 'oj'
 
 gem 'rack-cors'
+gem 'rack-throttle'
 gem 'tilt'
 
 gem 'sass'
