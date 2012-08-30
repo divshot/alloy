@@ -1,53 +1,41 @@
-<ul class="nav nav-pills" id="processor-tabs">
-  <li class="active"><a href="#sass" data-toggle="tab">SASS</a></li>
-  <li><a href="#scss" data-toggle="tab">SCSS</a></li>
-  <li><a href="#less" data-toggle="tab">Less</a></li>
-  <li><a href="#stylus" data-toggle="tab">Stylus</a></li>
-</ul>
+<form method="post" class="form-inline">
+  <div id="editor"></div>
+  <div class="well">
+    <label class="radio" for="radio_sass"><input type="radio" id="radio_sass" name="type" value="sass" checked/> SASS</label>
+    <label class="radio" for="radio_scss"><input type="radio" id="radio_scss" name="type" value="scss"/> SCSS</label>
+    <label class="radio" for="radio_less"><input type="radio" id="radio_less" name="type" value="less"/> Less</label>
+    <label class="radio" for="radio_stylus"><input type="radio" id="radio_stylus" name="type" value="stylus"/> Stylus</label>
 
-<div id="processor-tabs-content" class="tab-content">
-  <div class="tab-pane active" id="sass">
-    <form action="/compile/sass" method="post">
-      <textarea name="source" class="src">// Compass is available
-@import "compass"
-
-body
-  background: white</textarea>
-      <button type="submit" class="btn btn-large btn-success">Compile</button>
-    </form>
+    <button type="submit" class="btn btn-large btn-success pull-right">Compile</button>
   </div>
+</form>
 
-  <div class="tab-pane" id="scss">
-    <form action="/compile/scss" method="post">
-      <textarea name="source" class="src">@import "compass"; // Compass is available
+<script type="text/javascript">
+$(function() {
+  var editor = ace.edit($("#editor")[0]);
+  editor.setTheme("ace/theme/vibrant_ink");
+  editor.setShowPrintMargin(false);
+  editor.renderer.setShowGutter(false);
+  editor.session.setTabSize(2);
 
-body {
-  background: white;
-  // Your CSS here
-}</textarea>
-      <button type="submit" class="btn btn-large btn-success">Compile</button>
-    </form>
+  $("input[name=type]").change(function() {
+    setType($("input[name=type]:checked").val());
+  });
 
-    <!--<textarea readonly class="src result"></textarea>-->
-  </div>
-
-  <div class="tab-pane" id="less">
-    <form action="/compile/less" method="post">
-      <textarea name="source" class="src">body {
-  background: white;
-  // Your CSS here
-}</textarea>
-      <button type="submit" class="btn btn-large btn-success">Compile</button>
-    </form>
-  </div>
-
-  <div class="tab-pane" id="stylus">
-    <form action="/compile/stylus" method="post">
-      <textarea name="source" class="src">@import "nib" // Nib is available
-
-body
-  background white</textarea>
-      <button type="submit" class="btn btn-large btn-success">Compile</button>
-    </form>
-  </div>
-</div>
+  $("form").submit(function(e) {
+    e.preventDefault();
+    var url = "/compile/" + $("input[name=type]:checked").val()
+    $.ajax({
+      url: url,
+      type: 'POST',
+      dataType: "text",
+      data: {
+        source: editor.session.getValue()
+      },
+      success: function(text) {
+        console.log(text);
+      }
+    });
+  });
+});
+</script>
