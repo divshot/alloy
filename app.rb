@@ -37,7 +37,6 @@ module Chic
 
     def compile!(type, source, options = {})
       content_type "text/css"
-
       compiled = case type.to_sym
         when :sass, :scss
           Sass.compile(source, 
@@ -51,10 +50,20 @@ module Chic
         else
           halt 400, "Unknown type requested."
       end
-
       compiled = YUI::CssCompressor.new.compress(compiled) if options[:compress]
 
+      track_stats!(type, source, options)
       compiled
+    end
+
+    def track_stats!(type, source, options)
+      $redis.incrby "stats:compiles", 1
+      $redis.incrby "stats:bytes_compiled", source.bytesize
+      $redis.incrby "stats:lines_compiled", source.lines.count
+
+      $redis.zincrby "stats:typed:bytes_compiled", source.bytesize, type.to_s
+      $redis.zincrby "stats:typed:lines_compiled", source.lines.count, type.to_s
+      $redis.zincrby "stats:typed:compiles", 1, type.to_s
     end
   end
 end

@@ -9,7 +9,8 @@ $(function() {
     editor.session.setValue($("#" + type + "-default").html());
   }
   setType("sass");
-
+  Prism.highlightAll();
+  
   $("input[name=type]").change(function() {
     setType($("input[name=type]:checked").val());
   });

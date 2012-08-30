@@ -7,7 +7,7 @@
 code { color: #444; }
 
 code[class*="language-"],
-pre[class*="language-"] {
+pre[class*="language-"], pre code {
     color: white;
     text-shadow: 0 -.1em .2em black;
     font-family: Consolas, Monaco, 'Andale Mono', monospace;
@@ -26,13 +26,13 @@ pre[class*="language-"] {
     hyphens: none;
 }
 
-pre[class*="language-"],
+pre[class*="language-"], pre,
 :not(pre) > code[class*="language-"] {
     background: #333;
 }
 
 /* Code blocks */
-pre[class*="language-"] {
+pre {
     padding: 1em;
     margin: .5em 0;
     overflow: auto; 

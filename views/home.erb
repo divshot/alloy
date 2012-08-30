@@ -31,8 +31,22 @@ Content-Type: application/json
   "type":"sass",
   "source":"@import \"compass\"\n\n.btn\n  @mixin border-radius(15px)\n  background-color: blue",
   "compress":true
-}</code></div>
+}</code></pre>
 
+  <h4>Calling Alloy From the Browser</h4>
+
+  <p>Alloy supports Cross-Origin Resource Sharing (CORS) so you can safely make AJAX requests directly to the Alloy endpoint. Here's a jQuery
+    example:</p>
+
+  <pre><code class="language-javascript">$.ajax({
+  url: "http://alloy.divshot.com/compile",
+  type: "POST",
+  dataType: "text",
+  success: function(css) {
+    $("#some-element").text(css);
+  }
+});</code></pre>
+</div>
 
 <script type="text/sass" id="sass-default">// Compass is available
 @import "compass"
