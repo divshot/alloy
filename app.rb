@@ -4,6 +4,13 @@ module Alloy
       use Alloy::Throttle, max: 100, cache: $redis
     end
 
+    use Rack::Cors do
+      allow do
+        origins '*'
+        resource '/compile*', :headers => :any, :methods => :post
+      end
+    end
+
     get '/' do
       erb :home
     end

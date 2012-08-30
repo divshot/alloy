@@ -42,6 +42,11 @@ Content-Type: application/json
   url: "http://alloy.divshot.com/compile",
   type: "POST",
   dataType: "text",
+  data: {
+    compress: true,
+    type: "sass",
+    source: "body\n  color: blue"
+  },
   success: function(css) {
     $("#some-element").text(css);
   }
