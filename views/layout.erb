@@ -1,20 +1,26 @@
 <!doctype html>
 <html>
   <head>
-    <title>Universal CSS Preprocessor API - Divshot Chic</title>
+    <title>Universal CSS Preprocessor API - Divshot Alloy</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
     <script type="text/javascript" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ace/0.2.0/ace.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ace/0.2.0/theme-vibrant_ink.js"></script>
     <style>
+      html { height: 100%; }
+      body { background: #FBFBFB url('/images/bg.jpg') top left repeat-x; height: 100%; padding-top: 42px; }
+      #details { text-align: center; }
+      h1 { width: 218px; height: 78px; overflow: hidden; text-indent: -9999em; background: url('/images/logo.png') top left no-repeat; margin: 18px auto 0 auto; padding: 0; }
+      #share-buttons { margin: 32px 0; padding: 0; }
+        #share-buttons li { list-style: none; margin: 0 0 10px 0; padding: 0; }
+      #content { color: #444; text-shadow: 0 1px 0 rgba(255,255,255,0.32); }
       #editor {
         position: relative;
         width: 100%;
         height: 300px;
         margin-bottom: 15px;
       }
-
       .btn-large {
         margin: -8px -10px;
       }
@@ -22,8 +28,26 @@
   </head>
   <body>
     <div class="container">
-      <div class='page-header'><h1>Divshot <i>Chic</i></h1></div>
-      <%= yield %>
+      <div class="row">
+        <aside id="details" class="span3">
+          <header>
+            <img src="/images/glyph.png">
+            <h1>Alloy From Divshot</h1>
+            <ul id="share-buttons">
+              <li><iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=divshot&repo=alloy&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe></li>
+              <li><iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=divshot&repo=alloy&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="98px" height="20px"></iframe></li>
+              <li><a href="https://twitter.com/divshot" class="twitter-follow-button" data-link-color="#0069D6" data-show-count="true">Follow @divshot</a></li>
+              <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://divshot.com/alloy" data-count="horizontal" data-via="divshot">Tweet</a></li>
+            </ul>
+          </header>      
+        </aside>
+        <div id="content" class="span9">
+          <%= yield %>
+          <footer>
+            <p>Divshot Alloy - Built by <a href="http://divshot.com" title="The Interface Builder for Web Apps">Divshot</a>.<br/>Code licensed under the <a href="#">Apache License v2.0</a>. Documentation licensed under <a href="#">CC BY 3.0</a>.</p>
+          </footer>
+        </div>
+      </div>
     </div>
   </body>
 </html>
