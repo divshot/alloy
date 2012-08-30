@@ -21,9 +21,39 @@
     <code>:lang</code> is one of <code>sass</code>, <code>scss</code>, <code>less</code>, or <code>stylus</code>. The request can either be of type <code>applicaton/json</code> or <code>application/x-www-form-encoded</code> and must include a <code>source</code> parameter
     with the uncompiled code.</p>
 
+  <p>You can additionally pass a <code>compress</code> parameter if you would like the resulting CSS to be minified.</p>
+
   <h4>Example</h4>
 
   <pre><code>POST http://alloy.divshot.com/compile/sass
 Content-Type: application/json
 
 {"source":"@import \"compass\"\n\n.btn\n  @mixin border-radius(15px)\n  background-color: blue"}</code></div>
+
+
+<script type="text/sass" id="sass-default">// Compass is available
+@import "compass"
+
+.btn
+  +border-radius(12px)
+  background: #06a</script>
+
+<script type="text/scss" id="scss-default">// Compass is available
+@import "compass";
+
+.btn {
+  @mixin border-radius(12px);
+  background: #06a;
+}</script>
+
+<script type="text/less" id="less-default">.btn {
+  @mixin border-radius(12px);
+  background: #06a;
+}</script>
+
+<script type="text/stylus" id="stylus-default">// Nib is available
+@import "nib"
+
+.btn
+  border-radius 12px
+  background #06a</script>
