@@ -10,7 +10,7 @@ decided to open source it so that everyone can benefit.
 
 ## Hosted Version
 
-Note that you can always use Alloy from its home at [alloy.divshot.com](http://alloy.divshot.com).
+Note that you can always use Alloy from its home at [divshot.com/alloy](http://divshot.com/alloy).
 Usage of this free hosted service is currently limited to 100 requests per hour.
 
 ## Dependencies
