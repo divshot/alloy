@@ -6,36 +6,24 @@ module Chic
 
     before{ parse_json_params! if request.content_type == 'application/json' }
 
+    post '/compile' do
+      compile! params[:type], params[:source], params
+    end
+
     post '/compile/sass' do
-      output_style = (params[:output_style] || "nested").to_sym
-      
-      content_type "text/css"
-      Sass.compile(params[:source], 
-        syntax: :sass, 
-        cache: true,
-        style: output_style
-      )
+      compile! :sass, params[:source], params
     end
 
     post '/compile/scss' do
-      output_style = (params[:output_style] || "nested").to_sym
-      
-      content_type "text/css"
-      Sass.compile(params[:source], 
-        syntax: :scss, 
-        cache: true,
-        style: output_style
-      )
+      compile! :scss, params[:source], params
     end
 
     post '/compile/less' do
-      content_type "text/css"
-      LessJs.compile params[:source]
+      compile! :less, params[:source], params
     end
 
     post '/compile/stylus' do
-      content_type "text/css"
-      Stylus.compile params[:source]
+      compile! :stylus, params[:source], params
     end
 
     def parse_json_params!
@@ -45,6 +33,28 @@ module Chic
       end
     rescue MultiJson::DecodeError
       halt 400, "Invalid JSON request."
+    end
+
+    def compile!(type, source, options = {})
+      content_type "text/css"
+
+      compiled = case type.to_sym
+        when :sass, :scss
+          Sass.compile(source, 
+            syntax: type, 
+            cache: true
+          )
+        when :less
+          LessJs.compile source
+        when :stylus
+          Stylus.compile source
+        else
+          halt 400, "Unknown type requested."
+      end
+
+      compiled = YUI::CssCompressor.new.compress(compiled) if options[:compress]
+
+      compiled
     end
   end
 end

@@ -8,6 +8,7 @@ require 'stylus'
 require 'sinatra'
 require 'securerandom'
 require 'redis'
+require 'yui/compressor'
 
 paths = Sass::Engine::DEFAULT_OPTIONS[:load_paths]
 paths << Compass::Frameworks[:compass].stylesheets_directory

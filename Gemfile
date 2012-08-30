@@ -11,6 +11,7 @@ gem 'sass'
 gem 'compass'
 gem 'stylus'
 gem 'less-js'
+gem 'yui-compressor'
 
 gem 'sinatra'
 gem 'redis'
