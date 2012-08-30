@@ -1,6 +1,8 @@
 module Alloy
   class App < Sinatra::Base
-    use Alloy::Throttle, max: 100, cache: $redis
+    configure :production do
+      use Alloy::Throttle, max: 100, cache: $redis
+    end
 
     get '/' do
       erb :home
@@ -42,7 +44,7 @@ module Alloy
       compiled = case type.to_sym
         when :sass, :scss
           Sass.compile(source, 
-            syntax: type, 
+            syntax: type.to_sym, 
             cache: true
           )
         when :less

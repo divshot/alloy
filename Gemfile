@@ -16,3 +16,10 @@ gem 'yui-compressor'
 
 gem 'sinatra'
 gem 'redis'
+
+group :development, :test do
+  gem 'rspec'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'rack-test'
+end
