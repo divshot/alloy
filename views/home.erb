@@ -8,6 +8,7 @@
     <label class="radio" for="radio_less"><input type="radio" id="radio_less" name="type" value="less"/> Less</label>
     <label class="radio" for="radio_stylus"><input type="radio" id="radio_stylus" name="type" value="stylus"/> Stylus</label>
 
+    <label class="checkbox" for="field_compress"><input id="field_compress" type="checkbox" name="compress" value="true"/> Compress Output</label>
     <button type="submit" class="btn btn-large btn-success pull-right">Compile</button>
   </div>
 </form>
@@ -47,7 +48,8 @@ Content-Type: application/json
 }</script>
 
 <script type="text/less" id="less-default">.btn {
-  @mixin border-radius(12px);
+  -webkit-border-radius: 12px;
+  border-radius: 12px;
   background: #06a;
 }</script>
 

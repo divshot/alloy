@@ -17,13 +17,13 @@ $(function() {
   $("form").submit(function(e) {
     e.preventDefault();
     var url = "/compile/" + $("input[name=type]:checked").val()
+    var data = {source: editor.session.getValue() }
+    if ($("#field_compress").is(":checked")) data.compress = true;
     $.ajax({
       url: url,
       type: 'POST',
       dataType: "text",
-      data: {
-        source: editor.session.getValue()
-      },
+      data: data,
       success: function(text) {
         $("#result").show().find("code").text(text);
         Prism.highlightAll();
