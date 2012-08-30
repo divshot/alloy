@@ -4,6 +4,8 @@
  * @author Lea Verou
  */
 
+code { color: #444; }
+
 code[class*="language-"],
 pre[class*="language-"] {
     color: white;
