@@ -29,7 +29,7 @@ div::-webkit-scrollbar-track, ::-webkit-scrollbar-track-piece { background-color
 div::-webkit-scrollbar-thumb { width: 6px; height: 6px; background: rgba(255,255,255,0.3); border-radius: 4px; }
 div::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.82); }
 #result { margin: 10px 0 20px 0; }
-.btn-large {
+.btn-compile {
   margin: -8px -10px;
 }
 .well { border: none; background: rgba(0,0,0,.06); }

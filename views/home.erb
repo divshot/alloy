@@ -9,11 +9,26 @@
     <label class="radio" for="radio_stylus"><input type="radio" id="radio_stylus" name="type" value="stylus"/> Stylus</label>
 
     <label class="checkbox" for="field_compress"><input id="field_compress" type="checkbox" name="compress" value="true"/> Compress Output</label>
-    <button type="submit" class="btn btn-large btn-success pull-right">Compile</button>
+    <button type="submit" class="btn btn-large btn-success pull-right btn-compile">Compile</button>
   </div>
 </form>
 
 <pre id='result' style="display: none;"><code class="language-css"></code></pre>
+
+<div id='bookmarklet-info'>
+  <h3>Bookmarklets</h3>
+
+  <p>Tired of having to write plain old CSS in the "Custom CSS" field on websites? These bookmarklets will allow you to compile any <code>textarea</code> filled with a preprocessor language into CSS. Just click the bookmarklet then click the textarea. Drag your favorite to the bookmark toolbar!</p>
+
+  <div class='well' align='center'>
+    <div class='btn-group'>
+      <a class='btn btn-large btn-inverse' href='<%= bookmarklet_code("SASS") %>'>Compile SASS</a>
+      <a class='btn btn-large btn-inverse' href='<%= bookmarklet_code("SCSS") %>'>Compile SCSS</a>
+      <a class='btn btn-large btn-inverse' href='<%= bookmarklet_code("LESS") %>'>Compile LESS</a>
+      <a class='btn btn-large btn-inverse' href='<%= bookmarklet_code("Stylus") %>'>Compile Stylus</a>
+    </div>
+  </div>
+</div>
 
 <div id='api-docs'>
   <h3>API Reference</h3>
