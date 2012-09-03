@@ -16,6 +16,8 @@ gem 'yui-compressor'
 
 gem 'sinatra'
 gem 'redis'
+gem 'mongo_mapper'
+gem 'bson_ext'
 
 gem 'unicorn'
 

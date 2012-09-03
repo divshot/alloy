@@ -1,3 +1,5 @@
+ENV['RACK_ENV'] ||= 'development'
+
 require 'bundler'
 Bundler.setup :default, (ENV['RACK_ENV'] || 'development').to_sym
 
@@ -10,6 +12,7 @@ require 'rack/throttle'
 require 'rack/cors'
 require 'securerandom'
 require 'redis'
+require 'mongo_mapper'
 require 'yui/compressor'
 
 paths = Sass::Engine::DEFAULT_OPTIONS[:load_paths]
@@ -24,5 +27,10 @@ else
   $redis = Redis.new
 end
 
-require File.dirname(__FILE__) + '/throttle'
-require File.dirname(__FILE__) + '/app'
+MongoMapper.config = { ENV['RACK_ENV'] => { 'uri' => ENV['MONGOHQ_URL'] } }
+MongoMapper.connect(ENV['RACK_ENV'])
+
+$:.unshift File.dirname(__FILE__)
+require 'lib/throttle'
+require 'models/package'
+require 'app'
