@@ -51,6 +51,30 @@ module Alloy
       Util.compile! :stylus, params[:source], params
     end
 
+    def compile_options_from_params(package, params)
+      out = {}
+      params.each_pair do |k,v|
+        if %w(compress).include? k
+          out[k] = v
+        elsif package.variable(k)
+          (out["variables"] ||= {})[k] = v
+        end
+      end
+      out
+    end
+
+    get '/packages/:name/source/:target' do
+      content_type "text/plain"
+      package = Package.find_by_name(params[:name])
+      package.compile_source(params[:target], compile_options_from_params(package, params))
+    end
+
+    get '/packages/:name/compile/:target' do
+      content_type "text/plain"
+      package = Package.find_by_name(params[:name])
+      package.compile(params[:target], compile_options_from_params(package, params))
+    end
+
     def parse_json_params!
       json_params = MultiJson.load(request.body.read)
       json_params.each_pair do |k,v|

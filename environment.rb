@@ -28,7 +28,11 @@ else
   $redis = Redis.new
 end
 
-MongoMapper.config = { ENV['RACK_ENV'] => { 'uri' => ENV['MONGOHQ_URL'] } }
+if ENV['MONGOHQ_URL']
+  MongoMapper.config = { ENV['RACK_ENV'] => { 'uri' => ENV['MONGOHQ_URL'] } }
+else
+  MongoMapper.config = { ENV['RACK_ENV'] => { 'database' => "alloy_#{ENV["RACK_ENV"]}" } }
+end
 MongoMapper.connect(ENV['RACK_ENV'])
 
 $:.unshift File.dirname(__FILE__)

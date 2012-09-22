@@ -13,11 +13,20 @@ describe Package do
     end
   end
 
-  context "Twitter Bootstrap" do
+  context "Twitter Bootstrap Integration" do
     subject{ Package.new(MultiJson.load(File.read('spec/support/fixtures/bootstrap.json'))) }
 
     it 'should compile successfully' do
       expect{ subject.compile(:bootstrap) }.not_to raise_error
+    end
+
+    it 'should include variables' do
+      output = subject.compile(:bootstrap, "variables" => {"linkColor" => "#123456"})
+      output.should be_include("#123456")
+    end
+
+    it 'should compress if that option is passed' do
+      subject.compile(:bootstrap, compress: true).size.should < subject.compile(:bootstrap).size
     end
   end
 end

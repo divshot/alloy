@@ -1,6 +1,6 @@
 require 'models/variable'
 require 'models/style'
-require 'models/build'
+require 'models/target'
 
 class Package
   include MongoMapper::Document
@@ -15,7 +15,7 @@ class Package
   
   many :variables
   many :styles
-  many :builds
+  many :targets
 
   def style(name)
     styles.each do |style|
@@ -24,25 +24,38 @@ class Package
     nil
   end
 
-  def build(name)
-    builds.each do |build|
-      return build if build.name == name.to_s
+  def target(name)
+    targets.each do |target|
+      return target if target.name == name.to_s
+    end
+    nil
+  end
+
+  def variable(name)
+    variables.each do |variable|
+      return variable if variable.name == name.to_s
     end
     nil
   end
 
   def compile_variables(overrides = {})
+    overrides = HashWithIndifferentAccess.new(overrides)
+
     variables.map{|variable|
       variable.render(overrides[variable.name])
     }.join("\n")
   end
 
-  def compile_source(build_name, options = {})
-    build(build_name).compile(options)
+  def compile_source(target_name, options = {})
+    options = HashWithIndifferentAccess.new(options)
+
+    target(target_name).compile(options)
   end
 
-  def compile(build_name, options = {})
-    source = compile_source(build_name, options = {})
+  def compile(target_name, options = {})
+    options = HashWithIndifferentAccess.new(options)
+
+    source = compile_source(target_name, options)
     Util.compile!(type, source, options)
   end
 end

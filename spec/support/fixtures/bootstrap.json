@@ -157,7 +157,7 @@
     {"name":"fluidGridGutterWidth768","default":"percentage(@gridGutterWidth768/@gridRowWidth768)"}
   ],
 
-  "builds": [
+  "targets": [
     {"name":"bootstrap","label":"Bootstrap","styles":["reset","{variables}","mixins","scaffolding","grid","layouts","type","code","forms","tables","sprites","dropdowns","wells","component-animations","close","buttons","button-groups","alerts","navs","navbar","breadcrumbs","pagination","pager","modals","tooltip","popovers","thumbnails","labels-badges","progress-bars","accordion","carousel","hero-unit","utilities"], "default":true},
     {"name":"bootstrap-responsive","label":"Bootstrap Responsive","styles":["{variables}","mixins","responsive-utilities","responsive-1200px-min","responsive-768px-979px","responsive-767px-max","responsive-navbar"]}
   ],
