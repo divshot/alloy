@@ -1,11 +1,12 @@
 ENV['RACK_ENV'] ||= 'development'
+VALID_TYPES = %w(css sass scss less stylus)
 
 require 'bundler'
 Bundler.setup :default, (ENV['RACK_ENV'] || 'development').to_sym
 
 require 'sass'
 require 'compass'
-require 'less-js'
+require 'less'
 require 'stylus'
 require 'sinatra'
 require 'rack/throttle'
@@ -32,5 +33,6 @@ MongoMapper.connect(ENV['RACK_ENV'])
 
 $:.unshift File.dirname(__FILE__)
 require 'lib/throttle'
+require 'lib/util'
 require 'models/package'
 require 'app'

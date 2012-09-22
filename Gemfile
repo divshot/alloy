@@ -8,10 +8,11 @@ gem 'rack-cors'
 gem 'rack-throttle'
 gem 'tilt'
 
-gem 'sass'
 gem 'compass'
 gem 'stylus'
-gem 'less-js'
+gem 'therubyracer', group: [:development, :test]
+gem 'therubyracer-heroku', group: :production
+gem 'less'
 gem 'yui-compressor'
 
 gem 'sinatra'
@@ -21,10 +22,16 @@ gem 'bson_ext'
 
 gem 'unicorn'
 
+gem 'sprockets'
+gem 'sprockets-sass'
+gem 'sprockets-helpers'
+gem 'coffee-script'
+
 group :development, :test do
   gem 'rspec'
   gem 'guard'
   gem 'guard-rspec'
   gem 'rack-test'
   gem 'pry'
+  gem 'factory_girl'
 end

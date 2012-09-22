@@ -1,0 +1,157 @@
+/*
+ *= require_self
+ *= require "package.css"
+ */
+
+html { height: 100%; }
+body { background: #E4E4E4 url('/images/bg.jpg') top left repeat-x; height: 100%; padding-top: 42px; border-top: 3px solid #000; }
+#details { min-height: 40px; text-align: center; }
+header { position: fixed; }
+h1 { width: 218px; height: 78px; overflow: hidden; text-indent: -9999em; background: url('/images/logo.png') top left no-repeat; margin: 18px auto 0 auto; padding: 0 0 28px 0; border-bottom: 1px solid rgba(0,0,0,0.2); -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.2); }
+h2 { color: #fff; font-weight: normal; margin: 0 0 16px 0; text-shadow: 0 0 3px rgba(0,0,0,.62); }
+h3, h4, h5, h6 { text-shadow: 0 1px 0 rgba(255,255,255,0.5); }
+#share-buttons { margin: 28px 0 20px 24px; padding: 0; }
+  #share-buttons li { display: inline-block; list-style: none; margin: 0 0 10px 0; padding: 0; }
+#content { color: #444; text-shadow: 0 1px 0 rgba(255,255,255,0.32); }
+#content p { margin: 0 0 20px 0; }
+pre { margin-bottom: 20px; }
+textarea.src { width: 100%; height: 320px; font-size: 0.8em; -webkit-box-sizing: border-box; box-sizing: border-box; font-family: "Courier New", Monaco, monospace;
+}
+#editor {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  margin-bottom: 15px;
+  border: .3em solid #333;
+  border-radius: .5em;
+  box-shadow: 1px 1px .5em black inset;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.ace_scroller { overflow-x: hidden !important; background: rgba(0,0,0,0.6) !important; border-radius: 4px 0 0 4px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-shadow: none; }
+div::-webkit-scrollbar { width: 8px; height: 8px; border-radius: 0 4px 4px 0;background: rgba(0,0,0,0.6) !important; }
+div::-webkit-scrollbar-track, ::-webkit-scrollbar-track-piece { background-color: transparent; }
+div::-webkit-scrollbar-thumb { width: 6px; height: 6px; background: rgba(255,255,255,0.3); border-radius: 4px; }
+div::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.82); }
+#result { margin: 10px 0 20px 0; }
+.btn-compile {
+  margin: -8px -10px;
+}
+.well { border: none; background: rgba(0,0,0,.06); }
+label { cursor: pointer; }
+.radio { padding-right: 12px; }
+  .radio input { margin-right: 6px !important; }
+footer { color: #888; padding: 0 0 10px 0; }
+
+@media (max-width: 767px) {
+  header { position: static; }
+  h2 { color: #666; text-shadow: none; text-align: center; margin: 0 0 30px 0; }
+    h2 strong { color: #333; }
+}
+
+/**
+ * prism.js Dark theme for JavaScript, CSS and HTML
+ * Based on the slides of the talk “/Reg(exp){2}lained/”
+ * @author Lea Verou
+ */
+
+code { color: #444; }
+
+code[class*="language-"],
+pre[class*="language-"], pre code {
+    color: white;
+    text-shadow: 0 -.1em .2em black;
+    font-family: Consolas, Monaco, 'Andale Mono', monospace;
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+pre[class*="language-"], pre,
+:not(pre) > code[class*="language-"] {
+    background: #333;
+}
+
+/* Code blocks */
+pre {
+    padding: 1em;
+    margin: .5em 0;
+    overflow: auto; 
+    border: .3em solid #333;
+    border-radius: .5em;
+    box-shadow: 1px 1px .5em black inset;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+    padding: .15em .2em .05em;
+    border-radius: .3em;
+    border: .13em solid hsl(30,20%,40%);
+    box-shadow: 1px 1px .3em -.1em black inset;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: hsl(30,20%,50%);
+}
+
+.token.punctuation {
+    opacity: .7;
+}
+
+.namespace {
+    opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number {
+    color: #dff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string {
+    color: hsl(75, 70%, 60%);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: hsl(40, 90%, 60%);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: hsl(350, 40%, 70%);
+}
+
+
+.token.regex,
+.token.important {
+    color: #e90;
+}
+
+.token.important {
+    font-weight: bold;
+}
+
+.token.entity {
+    cursor: help;
+}
