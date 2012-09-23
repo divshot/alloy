@@ -11,6 +11,10 @@ GEM
     activesupport (3.2.8)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    aws-s3 (0.6.3)
+      builder
+      mime-types
+      xml-simple
     bson (1.6.4)
     bson_ext (1.6.4)
       bson (~> 1.6.4)
@@ -49,6 +53,7 @@ GEM
       rb-fsevent (~> 0.9.1)
       rb-inotify (~> 0.8.8)
     method_source (0.8)
+    mime-types (1.19)
     mongo (1.6.4)
       bson (~> 1.6.4)
     mongo_mapper (0.11.2)
@@ -120,6 +125,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    xml-simple (1.1.1)
     yui-compressor (0.9.6)
       POpen4 (>= 0.1.4)
 
@@ -127,6 +133,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-s3
   bson_ext
   coffee-script
   compass

@@ -27,6 +27,8 @@ gem 'sprockets-sass'
 gem 'sprockets-helpers'
 gem 'coffee-script'
 
+gem 'aws-s3'
+
 group :development, :test do
   gem 'rspec'
   gem 'guard'

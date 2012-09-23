@@ -15,6 +15,7 @@ require 'securerandom'
 require 'redis'
 require 'mongo_mapper'
 require 'yui/compressor'
+require 'aws/s3'
 
 paths = Sass::Engine::DEFAULT_OPTIONS[:load_paths]
 paths << Compass::Frameworks[:compass].stylesheets_directory
@@ -34,6 +35,11 @@ else
   MongoMapper.config = { ENV['RACK_ENV'] => { 'database' => "alloy_#{ENV["RACK_ENV"]}" } }
 end
 MongoMapper.connect(ENV['RACK_ENV'])
+
+AWS::S3::Base.establish_connection!(
+  :access_key_id     => ENV['S3_KEY'], 
+  :secret_access_key => ENV['S3_SECRET']
+)
 
 $:.unshift File.dirname(__FILE__)
 require 'lib/throttle'

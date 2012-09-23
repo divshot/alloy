@@ -1,3 +1,5 @@
+require 'digest/sha1'
+
 module Alloy
   class App < Sinatra::Base
     configure :production do
@@ -32,23 +34,62 @@ module Alloy
     before{ parse_json_params! if request.content_type == 'application/json' }
 
     post '/compile' do
-      Util.compile! params[:type], params[:source], params
+      compile! params[:type], params[:source], params
     end
 
     post '/compile/sass' do
-      Util.compile! :sass, params[:source], params
+      compile! :sass, params[:source], params
     end
 
     post '/compile/scss' do
-      Util.compile! :scss, params[:source], params
+      compile! :scss, params[:source], params
     end
 
     post '/compile/less' do
-      Util.compile! :less, params[:source], params
+      compile! :less, params[:source], params
     end
 
     post '/compile/stylus' do
-      Util.compile! :stylus, params[:source], params
+      compile! :stylus, params[:source], params
+    end
+
+    post '/builds' do
+      halt 400 unless params[:type] && params[:source]
+
+      hash = Digest::SHA1.hexdigest("/* #{params[:type]} */\n\n#{params[:source]}")
+
+      unless $redis.sismember("builds",hash)
+        track_stats!(params[:type], params[:source], {})
+        
+        output = Util.compile!(params[:type], params[:source])
+        compressed_output = Util.compile!(params[:type], params[:source], compress: true)
+
+        AWS::S3::S3Object.store('builds/' + hash + '.css', output, ENV["S3_BUCKET"], access: :public_read)
+        AWS::S3::S3Object.store('builds/' + hash + '.min.css', compressed_output, ENV["S3_BUCKET"], access: :public_read)
+
+        $redis.sadd "builds", hash
+      end
+
+      content_type "application/json"
+      MultiJson.dump(
+        hash: hash,
+        url: ("//#{ENV['ASSET_HOST']}/builds/#{hash}.css"),
+        compressed_url: ("//#{ENV['ASSET_HOST']}/builds/#{hash}.min.css")
+      )
+    end
+
+    get "/builds/:hash.min.css" do
+      output = $redis.get "builds:#{params[:hash]}:compressed"
+      halt 404, "The specified stylesheet was not found." unless output
+      content_type 'text/css'
+      output
+    end
+    
+    get "/builds/:hash.css" do
+      output = $redis.get "builds:#{params[:hash]}:compiled"
+      halt 404, "The specified stylesheet was not found." unless output
+      content_type 'text/css'
+      output
     end
 
     def compile_options_from_params(package, params)
@@ -70,7 +111,7 @@ module Alloy
     end
 
     get '/packages/:name/compile/:target' do
-      content_type "text/plain"
+      content_type "text/css"
       package = Package.find_by_name(params[:name])
       package.compile(params[:target], compile_options_from_params(package, params))
     end
