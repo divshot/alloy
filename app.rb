@@ -56,26 +56,11 @@ module Alloy
     post '/builds' do
       halt 400 unless params[:type] && params[:source]
 
-      hash = Digest::SHA1.hexdigest("/* #{params[:type]} */\n\n#{params[:source]}")
+      build = Build.new(params[:type], params[:source])
+      build.store!
 
-      unless $redis.sismember("builds",hash)
-        track_stats!(params[:type], params[:source], {})
-        
-        output = Util.compile!(params[:type], params[:source])
-        compressed_output = Util.compile!(params[:type], params[:source], compress: true)
-
-        AWS::S3::S3Object.store('builds/' + hash + '.css', output, ENV["S3_BUCKET"], access: :public_read)
-        AWS::S3::S3Object.store('builds/' + hash + '.min.css', compressed_output, ENV["S3_BUCKET"], access: :public_read)
-
-        $redis.sadd "builds", hash
-      end
-
-      content_type "application/json"
-      MultiJson.dump(
-        hash: hash,
-        url: ("//#{ENV['ASSET_HOST']}/builds/#{hash}.css"),
-        compressed_url: ("//#{ENV['ASSET_HOST']}/builds/#{hash}.min.css")
-      )
+      content_type 'application/json'
+      MultiJson.dump(build.serializable_hash)
     end
 
     get "/builds/:hash.min.css" do

@@ -44,5 +44,8 @@ AWS::S3::Base.establish_connection!(
 $:.unshift File.dirname(__FILE__)
 require 'lib/throttle'
 require 'lib/util'
+
 require 'models/package'
+require 'models/build'
+
 require 'app'
