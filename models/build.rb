@@ -1,15 +1,16 @@
 require 'digest/sha1'
 
 class Build
-  attr_reader :type, :source
+  attr_reader :type, :source, :filename
 
-  def initialize(type, source)
+  def initialize(type, source, filename = nil)
     @type = type
     @source = source
+    @filename = filename
   end
 
   def hash
-    Digest::SHA1.hexdigest("/* #{type} */\n\n#{source}")
+    Digest::SHA1.hexdigest("/* #{filename} - #{type} */\n\n#{source}")
   end
 
   def exists?
@@ -20,20 +21,24 @@ class Build
     return false if exists?
 
     output = Util.compile!(type, source)
-    compressed_output = Util.compile!(type, source, compress: true)
+    compressed_output = Util.compress!(output)
 
-    AWS::S3::S3Object.store('builds/' + hash + '.css', output, ENV["S3_BUCKET"], access: :public_read)
-    AWS::S3::S3Object.store('builds/' + hash + '.min.css', compressed_output, ENV["S3_BUCKET"], access: :public_read)
+    AWS::S3::S3Object.store(path + '.css', output, ENV["S3_BUCKET"], access: :public_read)
+    AWS::S3::S3Object.store(path + '.min.css', compressed_output, ENV["S3_BUCKET"], access: :public_read)
     $redis.sadd "builds", hash
     true
   end
 
+  def path
+    ['builds', hash, filename].compact.join("/")
+  end
+
   def url
-    "//#{ENV['ASSET_HOST']}/builds/#{hash}.css"
+    "//#{ENV['ASSET_HOST']}/#{path}.css"
   end
 
   def compressed_url
-    "//#{ENV['ASSET_HOST']}/builds/#{hash}.min.css"
+    "//#{ENV['ASSET_HOST']}/#{path}.min.css"
   end
 
   def serializable_hash

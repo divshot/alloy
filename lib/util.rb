@@ -15,7 +15,11 @@ module Util
       else
         halt 400, "Unknown type requested."
     end
-    compiled = YUI::CssCompressor.new.compress(compiled) if options[:compress]
+    compiled = Util.compress!(compiled) if options[:compress]
     compiled
+  end
+
+  def compress!(source)
+    YUI::CssCompressor.new.compress(source)
   end
 end

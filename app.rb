@@ -63,20 +63,6 @@ module Alloy
       MultiJson.dump(build.serializable_hash)
     end
 
-    get "/builds/:hash.min.css" do
-      output = $redis.get "builds:#{params[:hash]}:compressed"
-      halt 404, "The specified stylesheet was not found." unless output
-      content_type 'text/css'
-      output
-    end
-    
-    get "/builds/:hash.css" do
-      output = $redis.get "builds:#{params[:hash]}:compiled"
-      halt 404, "The specified stylesheet was not found." unless output
-      content_type 'text/css'
-      output
-    end
-
     def compile_options_from_params(package, params)
       out = {}
       params.each_pair do |k,v|
@@ -99,6 +85,18 @@ module Alloy
       content_type "text/css"
       package = Package.find_by_name(params[:name])
       package.compile(params[:target], compile_options_from_params(package, params))
+    end
+
+    get '/packages/:name/build/:target' do
+      content_type "text/css"
+      package = Package.find_by_name(params[:name])
+      
+      source = package.compile_source(params[:target], compile_options_from_params(package,params))
+      build = Build.new(package.type, source, "#{package.name}/#{params[:target]}")
+      build.store!
+
+      content_type 'application/json'
+      MultiJson.dump(build.serializable_hash)
     end
 
     def parse_json_params!
