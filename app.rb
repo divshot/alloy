@@ -19,7 +19,7 @@ module Alloy
       allow do
         origins '*'
         resource '/compile*', :headers => :any, :methods => :post
-        resource '/builds', :headers => :any, :methods => :post
+        resource '/builds*', :headers => :any, :methods => :post
       end
     end
 
