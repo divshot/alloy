@@ -1,3 +1,5 @@
+require 'tempfile'
+
 module Util
   module_function
 
@@ -9,7 +11,11 @@ module Util
           cache: true
         )
       when :less
-        Less::Parser.new.parse(source).to_css
+        file = Tempfile.new('source')
+        file.write source
+        file.close
+
+        output = `./node_modules/.bin/lessc #{file.path}`
       when :stylus
         Stylus.compile source
       when :css

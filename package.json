@@ -3,6 +3,7 @@
   "version":"0.0.1",
   "dependencies":{
     "nib":"latest",
-    "stylus":"latest"
+    "stylus":"latest",
+    "less":"latest"
   }
 }

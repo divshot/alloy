@@ -10,9 +10,6 @@ gem 'tilt'
 
 gem 'compass'
 gem 'stylus'
-gem 'therubyracer', group: [:development, :test]
-gem 'therubyracer-heroku', group: :production
-gem 'less'
 gem 'yui-compressor'
 
 gem 'sinatra'
