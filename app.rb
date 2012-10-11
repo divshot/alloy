@@ -15,14 +15,6 @@ module Alloy
       end
     end
 
-    use Rack::Cors do
-      allow do
-        origins '*'
-        resource '/compile*', :headers => :any, :methods => :post
-        resource '/builds*', :headers => :any, :methods => :post
-      end
-    end
-
     get '/' do
       redirect ENV["HOME_URL"], 301 if ENV["HOME_URL"]
       erb :home
