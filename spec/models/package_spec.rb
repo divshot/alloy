@@ -29,4 +29,16 @@ describe Package do
       subject.compile(:bootstrap, compress: true).size.should < subject.compile(:bootstrap).size
     end
   end
+
+  describe '#version_string' do
+    it 'should join version segments with periods' do
+      subject.version = [2,1,1]
+      subject.version_string.should == "2.1.1"
+    end
+
+    it 'should just return a string' do
+      subject.version = "1.0"
+      subject.version_string.should == "1.0"
+    end
+  end
 end

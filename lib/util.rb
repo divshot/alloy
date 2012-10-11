@@ -12,6 +12,8 @@ module Util
         Less::Parser.new.parse(source).to_css
       when :stylus
         Stylus.compile source
+      when :css
+        source
       else
         halt 400, "Unknown type requested."
     end

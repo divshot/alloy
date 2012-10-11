@@ -36,10 +36,12 @@ else
 end
 MongoMapper.connect(ENV['RACK_ENV'])
 
-AWS::S3::Base.establish_connection!(
-  :access_key_id     => ENV['S3_KEY'], 
-  :secret_access_key => ENV['S3_SECRET']
-)
+if ENV['S3_KEY']
+  AWS::S3::Base.establish_connection!(
+    :access_key_id     => ENV['S3_KEY'],
+    :secret_access_key => ENV['S3_SECRET']
+  )
+end
 
 $:.unshift File.dirname(__FILE__)
 require 'lib/throttle'

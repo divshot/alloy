@@ -92,7 +92,7 @@ module Alloy
       package = Package.find_by_name(params[:name])
       
       source = package.compile_source(params[:target], compile_options_from_params(package,params))
-      build = Build.new(package.type, source, "#{package.name}/#{params[:target]}")
+      build = Build.new(package.type, source, "#{package.name}/#{package.version_string}/#{params[:target]}")
       build.store!
 
       content_type 'application/json'

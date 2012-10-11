@@ -7,6 +7,7 @@ class Package
 
   key :name, String, required: true
   key :label, String, required: true
+  key :version
   key :description, String
   key :public, Boolean, default: false
   key :type, String, required: true
@@ -36,6 +37,10 @@ class Package
       return variable if variable.name == name.to_s
     end
     nil
+  end
+
+  def version_string
+    version.is_a?(Array) ? version.join(".") : version.to_s
   end
 
   def compile_variables(overrides = {})

@@ -23,10 +23,14 @@ class Build
     output = Util.compile!(type, source)
     compressed_output = Util.compress!(output)
 
-    AWS::S3::S3Object.store(path + '.css', output, ENV["S3_BUCKET"], access: :public_read)
-    AWS::S3::S3Object.store(path + '.min.css', compressed_output, ENV["S3_BUCKET"], access: :public_read)
+    AWS::S3::S3Object.store(path + '.css', output, bucket, access: :public_read)
+    AWS::S3::S3Object.store(path + '.min.css', compressed_output, bucket, access: :public_read)
     $redis.sadd "builds", hash
     true
+  end
+
+  def bucket
+    ENV["S3_BUCKET"] || 'divshot-alloy'
   end
 
   def path
