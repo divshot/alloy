@@ -2,6 +2,8 @@ require 'digest/sha1'
 
 module Alloy
   class App < Sinatra::Base
+    disable :protection
+    
     configure :production do
       use Alloy::Throttle, max: 100, cache: $redis
     end
