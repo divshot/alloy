@@ -6,7 +6,6 @@ Bundler.setup :default, (ENV['RACK_ENV'] || 'development').to_sym
 
 require 'sass'
 require 'compass'
-require 'less'
 require 'stylus'
 require 'sinatra'
 require 'rack/throttle'
