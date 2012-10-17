@@ -17,6 +17,8 @@ gem 'redis'
 gem 'mongo_mapper'
 gem 'bson_ext'
 
+gem 'url2png'
+
 gem 'unicorn'
 
 gem 'sprockets'

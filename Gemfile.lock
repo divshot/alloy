@@ -118,6 +118,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    url2png (0.3.4)
     xml-simple (1.1.1)
     yui-compressor (0.9.6)
       POpen4 (>= 0.1.4)
@@ -150,4 +151,5 @@ DEPENDENCIES
   stylus
   tilt
   unicorn
+  url2png
   yui-compressor

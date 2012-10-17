@@ -2,6 +2,8 @@ require 'digest/sha1'
 
 module Alloy
   class App < Sinatra::Base
+    include Url2png::Helpers::Common
+
     disable :protection
     
     configure :production do
@@ -56,6 +58,15 @@ module Alloy
 
       content_type 'application/json'
       MultiJson.dump(build.serializable_hash)
+    end
+    
+    post '/shots' do
+      shot = Quickshot.create!(content: request.body.read)
+      '{"url":"' + url2png_image_url(request.url + '/' + shot.id, viewport: '1280x720') + '"}'
+    end
+
+    get '/shots/:id' do
+      Quickshot.find(params[:id]).content
     end
 
     def compile_options_from_params(package, params)

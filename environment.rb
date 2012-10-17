@@ -15,8 +15,17 @@ require 'mongo_mapper'
 require 'yui/compressor'
 require 'aws/s3'
 
+require 'url2png'
+
 paths = Sass::Engine::DEFAULT_OPTIONS[:load_paths]
 paths << Compass::Frameworks[:compass].stylesheets_directory
+
+
+Url2png.config({
+  api_key: ENV['URL2PNG_KEY'],
+  private_key: ENV['URL2PNG_SECRET']
+})
+Url2png.default_size = "320x180"
 
 Stylus.use(:nib)
 
@@ -47,5 +56,6 @@ require 'lib/util'
 
 require 'models/package'
 require 'models/build'
+require 'models/quickshot'
 
 require 'app'
