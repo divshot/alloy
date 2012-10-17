@@ -62,7 +62,10 @@ module Alloy
     
     post '/shots' do
       shot = Quickshot.create!(content: request.body.read)
-      '{"url":"' + url2png_image_url(request.url + '/' + shot.id, viewport: '1280x720') + '"}'
+      MultiJson.dump({
+        full: url2png_image_url(request.url + '/' + shot.id, viewport: '1280x720'),
+        thumbnail: url2png_image_url(request.url + '/' + shot.id, viewport: '1280x720', thumbnail_max_width: '320', thumbnail_max_height: '180')
+      })
     end
 
     get '/shots/:id' do
