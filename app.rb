@@ -10,6 +10,17 @@ module Alloy
       use Alloy::Throttle, max: 100, cache: $redis
     end
 
+    set :raise_errors, false
+    set :show_exceptions, false
+    error do
+      if request.env['sinatra.error'].is_a?(Alloy::CompileError)
+        halt 400, "Compilation Error: #{request.env['sinatra.error'].message}"
+      else
+        raise request.env['sinatra.error']
+        halt 500, "An unknown error occurred."
+      end
+    end
+
     helpers do
       def bookmarklet_code(type)
         source = <<-JS

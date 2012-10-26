@@ -23,5 +23,13 @@ describe Alloy::App do
       post "/compile", source: "body\n  color red", type: "stylus"
       last_response.status.should == 200
     end
+
+    %w(sass scss less stylus).each do |lang|
+      it "should send through accurate error messages for #{lang}" do
+        post "/compile", source: "a9w378094@(@) }}", type: lang
+        last_response.status.should == 400
+        last_response.body.should be_include("Compilation Error")
+      end
+    end
   end
 end
