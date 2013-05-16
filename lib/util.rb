@@ -50,7 +50,7 @@ module Util
       else
         halt 400, "Unknown type requested."
     end
-    compiled = Util.compress!(compiled) if options[:compress]
+    compiled = Util.compress!(compiled) if options[:compress] == "true"
     compiled
   end
 
