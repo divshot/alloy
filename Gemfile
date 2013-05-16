@@ -9,6 +9,8 @@ gem 'rack-throttle'
 gem 'tilt'
 
 gem 'compass'
+gem 'susy'
+gem 'animate-sass'
 gem 'stylus'
 gem 'yui-compressor'
 
