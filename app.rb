@@ -71,17 +71,17 @@ module Alloy
       MultiJson.dump(build.serializable_hash)
     end
     
-    post '/shots' do
-      shot = Quickshot.create!(content: request.body.read)
-      MultiJson.dump({
-        full: url2png_image_url(request.url + '/' + shot.id, viewport: '1280x720'),
-        thumbnail: url2png_image_url(request.url + '/' + shot.id, viewport: '1280x720', thumbnail_max_width: '320', thumbnail_max_height: '180')
-      })
-    end
+    # post '/shots' do
+    #   shot = Quickshot.create!(content: request.body.read)
+    #   MultiJson.dump({
+    #     full: url2png_image_url(request.url + '/' + shot.id, viewport: '1280x720'),
+    #     thumbnail: url2png_image_url(request.url + '/' + shot.id, viewport: '1280x720', thumbnail_max_width: '320', thumbnail_max_height: '180')
+    #   })
+    # end
 
-    get '/shots/:id' do
-      Quickshot.find(params[:id]).content
-    end
+    # get '/shots/:id' do
+    #   Quickshot.find(params[:id]).content
+    # end
 
     def compile_options_from_params(package, params)
       out = {}

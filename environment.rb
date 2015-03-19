@@ -11,7 +11,7 @@ require 'sinatra'
 require 'rack/throttle'
 require 'securerandom'
 require 'redis'
-require 'mongo_mapper'
+# require 'mongo_mapper'
 require 'yui/compressor'
 require 'aws/s3'
 
@@ -36,12 +36,12 @@ else
   $redis = Redis.new
 end
 
-if ENV['MONGOHQ_URL']
-  MongoMapper.config = { ENV['RACK_ENV'] => { 'uri' => ENV['MONGOHQ_URL'] } }
-else
-  MongoMapper.config = { ENV['RACK_ENV'] => { 'database' => "alloy_#{ENV["RACK_ENV"]}" } }
-end
-MongoMapper.connect(ENV['RACK_ENV'])
+# if ENV['MONGOHQ_URL']
+#   MongoMapper.config = { ENV['RACK_ENV'] => { 'uri' => ENV['MONGOHQ_URL'] } }
+# else
+#   MongoMapper.config = { ENV['RACK_ENV'] => { 'database' => "alloy_#{ENV["RACK_ENV"]}" } }
+# end
+# MongoMapper.connect(ENV['RACK_ENV'])
 
 if ENV['S3_KEY']
   AWS::S3::Base.establish_connection!(
@@ -54,8 +54,8 @@ $:.unshift File.dirname(__FILE__)
 require 'lib/throttle'
 require 'lib/util'
 
-require 'models/package'
+# require 'models/package'
 require 'models/build'
-require 'models/quickshot'
+# require 'models/quickshot'
 
 require 'app'
